@@ -1,4 +1,4 @@
-import { LitElement, html } from './node_modules/lit-element/lit-element.js'
+import { html, LitElement } from 'https://unpkg.com/@polymer/lit-element@latest/lit-element.js?module';
 
 // Extend the LitElement base class
 class MyApp extends LitElement {
