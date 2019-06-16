@@ -1,7 +1,15 @@
-import { html, LitElement } from 'https://unpkg.com/@polymer/lit-element@latest/lit-element.js?module';
+import { html, LitElement, css } from 'https://unpkg.com/@polymer/lit-element@latest/lit-element.js?module';
 import 'https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.min.js'
 
 class AppChart extends LitElement {
+
+    // static get styles() {
+    //     return [css`
+    //         canvas {
+    //             width:1500px;
+    //             height:1500px;
+    //         }`];
+    //   } 
 
     firstUpdated(changedProperties) {
         var ctx = this.shadowRoot.querySelector('#myChart').getContext('2d');
@@ -76,6 +84,8 @@ class AppChart extends LitElement {
                 ],
             },
             options: {
+                responsive: false,
+                maintainAspectRatio: true,
                 tooltips: {
                     mode: 'nearest',
                     intersect: false,
@@ -136,10 +146,9 @@ class AppChart extends LitElement {
     render() {
         return html`
     <div>
-        <canvas id="myChart" width="200" height="200"></canvas>
+        <canvas id="myChart" width="1000" ></canvas>
     </div>
     
-    <p>A paragraph!</p>
     `;
     }
 }

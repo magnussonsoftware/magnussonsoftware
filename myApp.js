@@ -19,7 +19,7 @@ class MyApp extends LitElement {
      */
     return html`
       <!-- template content -->
-      <p>A paragraph!</p>
+      <p>Coopers test</p>
       <app-chart></app-chart>
     `;
   }
