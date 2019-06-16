@@ -146,7 +146,7 @@ class AppChart extends LitElement {
                         },
                         ticks: {
                             min : 1200,
-                            max : 3400,
+                            max : 3700,
                             stepSize: 100,
                             
                         }
