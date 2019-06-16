@@ -18,7 +18,7 @@ class MyApp extends LitElement {
      */
     return html`
       <!-- template content -->
-      <p>A paragraph</p>
+      <p>A paragraph!</p>
     `;
   }
 }
