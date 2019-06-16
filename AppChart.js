@@ -32,6 +32,16 @@ class AppChart extends LitElement {
         function VO2Max2Meters(value){
             return Math.round(value*44.73 + 504.9)
         }
+
+        function metersToMinsPerKm(meters) {
+            var totSeconds = 12*60
+            var kmDistance = meters/1000
+            var SecondsPerKm = Math.round(totSeconds/kmDistance)
+
+            var minutes = Math.floor(SecondsPerKm / 60);
+            var seconds = SecondsPerKm - minutes * 60;
+            return minutes + 'm' + seconds + 's'
+        }
         
 
         var myChart = new Chart(ctx, {
@@ -96,19 +106,25 @@ class AppChart extends LitElement {
                             
                             var max = ''
                             var vo2Max = ''
+                            var minPerKmMax = ''
                             if(index ) {
                                 max = data.datasets[index].data[tooltipItem.index] 
                                 vo2Max = metersToVO2Max(max)
+                                minPerKmMax = metersToMinsPerKm(max)
                             }
 
                             var min = ''
                             var vo2MaxMin = ''
+                            var minPerKmMin = ''
                             if(prevIndex) {
                                 min = data.datasets[prevIndex].data[tooltipItem.index] 
                                 vo2MaxMin = metersToVO2Max(min)
+                                minPerKmMin = metersToMinsPerKm(min)
                             }
                             
-                            return 'Range: '  + min + ' - ' + max + '  VO2Max: ' + vo2MaxMin + ' - ' + vo2Max
+                            return  'Range: '  + min + ' - ' + max + '  ' +
+                                    'VO2Max: ' + vo2MaxMin + ' - ' + vo2Max + '  ' +
+                                    'min/km: ' + minPerKmMin + ' - ' + minPerKmMax
                         },
                         //footer: function(tooltipItem, data) { return 'Total: 100 planos.'; }
                     }
