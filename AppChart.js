@@ -13,6 +13,7 @@ class AppChart extends LitElement {
         var average =       [ 35.0, 33.0, 31.5, 29.0, 27.0, 24.5 ].map( sup => VO2Max2Meters(sup));
         var poor =          [ 31.0, 29.0, 27.0, 24.5, 22.8, 20.2 ].map( sup => VO2Max2Meters(sup));
         var veryPoor =      [ 25.0, 23.6, 22.8, 21.0, 20.2, 17.5 ].map( sup => VO2Max2Meters(sup));
+        var dead =          [ 17.0, 17.0, 17.0, 17.0, 17.0, 17.0 ].map( sup => VO2Max2Meters(sup));
         
         
 
@@ -29,6 +30,12 @@ class AppChart extends LitElement {
             type: 'line',
             data: {
                 datasets: [
+                    {
+                        label: 'Dead',
+                        data: dead,
+                        borderColor: "#000000",
+                        backgroundColor : "#000000",
+                    },
                     {
                         label: 'Very poor',
                         data: veryPoor,
@@ -64,7 +71,7 @@ class AppChart extends LitElement {
                         data: superior,
                         borderColor: "#0DD900",
                         backgroundColor : "#0DD900",
-                    }          
+                    }        
                     
                 ],
             },
@@ -74,8 +81,8 @@ class AppChart extends LitElement {
                     intersect: false,
                     callbacks: {
                         label: function (tooltipItem, data) {
-                            var index = tooltipItem.datasetIndex >= data.datasets.length - 1 ? undefined : tooltipItem.datasetIndex + 1
-                            var prevIndex = tooltipItem.datasetIndex
+                            var index = tooltipItem.datasetIndex
+                            var prevIndex = tooltipItem.datasetIndex == 0 ? undefined : tooltipItem.datasetIndex -1
                             
                             var max = ''
                             var vo2Max = ''
@@ -83,9 +90,15 @@ class AppChart extends LitElement {
                                 max = data.datasets[index].data[tooltipItem.index] 
                                 vo2Max = metersToVO2Max(max)
                             }
-                                
-                            var min = data.datasets[prevIndex].data[tooltipItem.index] 
-                            return 'Range: '  + min + ' - ' + max + '  VO2Max: ' + metersToVO2Max(min) + ' - ' + vo2Max
+
+                            var min = ''
+                            var vo2MaxMin = ''
+                            if(prevIndex) {
+                                min = data.datasets[prevIndex].data[tooltipItem.index] 
+                                vo2MaxMin = metersToVO2Max(min)
+                            }
+                            
+                            return 'Range: '  + min + ' - ' + max + '  VO2Max: ' + vo2MaxMin + ' - ' + vo2Max
                         },
                         //footer: function(tooltipItem, data) { return 'Total: 100 planos.'; }
                     }
@@ -106,7 +119,7 @@ class AppChart extends LitElement {
                             labelString: 'Cooper\'s test Meters in 12 minutes'
                         },
                         ticks: {
-                            min : 1300,
+                            min : 1200,
                             max : 3400,
                             stepSize: 100,
                             
