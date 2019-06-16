@@ -1,4 +1,5 @@
 import { html, LitElement } from 'https://unpkg.com/@polymer/lit-element@latest/lit-element.js?module';
+import './AppChart.js'
 
 // Extend the LitElement base class
 class MyApp extends LitElement {
@@ -19,6 +20,7 @@ class MyApp extends LitElement {
     return html`
       <!-- template content -->
       <p>A paragraph!</p>
+      <app-chart></app-chart>
     `;
   }
 }
